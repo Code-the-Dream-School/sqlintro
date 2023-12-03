@@ -24,7 +24,9 @@ loop do
     puts "\nBye for now!"
     break
   end
-  sql += answer
+  if answer
+    sql += answer
+  end
   if sql.include? ";"
     begin
       pp db.execute2(sql)

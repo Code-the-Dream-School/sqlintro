@@ -120,6 +120,8 @@ Then, on github, create a pull request for your changes.  The pull request shoul
 
 Continue with the SQLBolt tutorial [here.](https://sqlbolt.com/)  Complete all exercises through 18.
 
+The "More Topics" link from the SQLBolt tutorial explains set operations and subqueries.  These are intermediate SQL topics, very good to know, so you may want to do those parts as well.
+
 ## Lesson 2 Assignment
 
 Create a new branch, called lesson2.  This is the branch you will use for your work.

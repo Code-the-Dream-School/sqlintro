@@ -41,7 +41,7 @@ Products p ON od.ProductID = p.ProductID;
 
 An example of a one to many association is the association between Customers and Orders.  A customer will
 have many Orders.  The way this works is that each entry in the Orders table has a foreign key, CustomerID, that equals the primary key for the customer that made that order.  In the database we will use, both
-have the name CustomerID.  (This is not always the case, but it is the default in Rails applications.)  You can find out how many orders each customer has with the following query:
+have the name CustomerID.  (This often not the case.  The default for Rails is that the primary key is called just ID, but the foreign key is called CustomerID.)  You can find out how many orders each customer has with the following query:
 
 ```
 Select CustomerName, COUNT(OrderID) AS OrderCount FROM Customers c JOIN Orders o ON c.CustomerID = o.CustomerID GROUP BY c.CustomerID;

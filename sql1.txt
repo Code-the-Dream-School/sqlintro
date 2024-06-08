@@ -5,24 +5,24 @@ SELECT * FROM Products LIMIT 5;
 
 1. Use an SQL SELECT statement to retrieve the first 10 rows of the Customer table, ordered by CustomerName.
 Paste your SQL statement below:
-
+SELECT * FROM customers ORDER BY customername LIMIT 10;
 
 2. Use an SQL Select statement to retrieve the names and prices for all products that cost less than $20.
 Paste your SQL statement below:
-
+SELECT productname, price FROM products WHERE price < 20;
 
 3. Retrieve all employees whose last name starts with C.  Paste your SQL statement below:
-
+SELECT * FROM employees WHERE lastname LIKE "C%";
 
 4. Retrieve the order ID and customer name for all orders where the customer name starts with A.
 Here you will have to do a join of the Orders table and the Customers table.  Paste your SQL
 statement below.
-
+SELECT orderid, customername FROM customers c INNER JOIN orders o ON c.customerid = o.customerid WHERE customername LIKE "A%"; 
 
 5. Retrieve the list of customers, ordered by customer name, along with their order IDs.  Note
 that not every customer has an order, but be sure that you include those customers without orders
 in the results of the query.  Paste your SQL statement below.
-
+SELECT customername, orderid FROM customers c LEFT JOIN orders o ON c.customerid = o.customerid ORDER BY customername;  
 
 
 6. Retrieve the list of customer names for customers that have no orders.  There are two ways to do this
@@ -32,12 +32,38 @@ SELECT CustomerName FROM Customers WHERE CustomerID NOT IN (SELECT CustomerID FR
 
 This is a subquery -- we haven't talked about those.  But, you can do the same thing with a left
 join by comparing the OrderID column with NULL.  Paste your SQL statement below.
-
+FIRST QUERY:
+ SELECT customername FROM customers c LEFT JOIN orders o ON c.customerid = o.customerid WHERE orderid IS NULL; 
+ Then I wanted to double check my answer with SECOND QUERY:
+ SELECT customername, orderid, c.customerid FROM customers c LEFT JOIN orders o ON c.customerid = o.customerid WHERE orderid IS NULL;
+ I found a discrepancy, 1 extra result:
+  ["Trail's Head Gourmet Provisioners ", nil, 82]]
+ I could not figure out why. I discovered it could be a trailing spaces issue, so I decided to use this:
+   SELECT TRIM(customername) FROM customers c LEFT JOIN orders o ON c.customerid = o.customerid WHERE orderid IS NULL;                                  
+[["TRIM(customername)"],                                                                                                                                     
+ ["Alfreds Futterkiste"],
+ ["Blauer See Delikatessen"],
+ ["Cactus Comidas para llevar"],
+ ["FISSA Fabrica Inter. Salchichas S.A."],
+ ["France restauration"],
+ ["Great Lakes Food Market"],
+ ["La corne d'abondance"],
+ ["Laughing Bacchus Wine Cellars"],
+ ["Lazy K Kountry Store"],
+ ["Let's Stop N Shop"],
+ ["Maison Dewey"],
+ ["North/South"],
+ ["Paris spécialités"],
+ ["Rancho grande"],
+ ["Spécialités du monde"],
+ ["The Cracker Box"],
+ ["Trail's Head Gourmet Provisioners"]]
+ I got them all!
 
 
 7. Retrieve the OrderID and ProductName of every order for a product with Tofu in the name.
 Paste your SQL statement below.  You will have to join Orders, OrderDetails, and Products.
 
-
+SELECT o.orderid, productname FROM orders o JOIN orderdetails od ON o.orderid = od.orderid JOIN products p ON od.productid = p.productid WHERE productname LIKE "%tofu%"; 
 
 

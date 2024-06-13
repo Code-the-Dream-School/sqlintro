@@ -17,9 +17,9 @@ The SQLBolt tutorial does not talk about *ambiguous column names*, but sometimes
 when doing joins.  Suppose you want to join a Customers table with an Orders table, and both contain
 a column called CustomerID.  The join statement you want is:
 ```
-SELECT Customer.CustomerID, CustomerName, OrderID FROM Customers JOIN Orders ON Customer.CustomerID = Orders.CustomerID;
+SELECT Customers.CustomerID, CustomerName, OrderID FROM Customers JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
 ```
-Because you have CustomerID in both tables, you have to qualify any reference to CustomerID with the table name.  You can do this more efficiently by using an alias, specified with AS, as follows:
+Because you have CustomerID in both tables, you have to qualify any reference to CustomerID with the table name.  You can do this more succinctly by using an alias, specified with AS, as follows:
 ```
 SELECT c.CustomerID, CustomerName, OrderID FROM Customers AS c JOIN Orders AS o ON c.CustomerID = o.CustomerID;
 ```

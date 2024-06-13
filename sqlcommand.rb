@@ -29,7 +29,20 @@ loop do
   end
   if sql.include? ";"
     begin
-      pp db.execute2(sql)
+      result_strings = db.execute2(sql).map do |row|
+        row.map { _1.nil? ? "NULL" : _1.to_s } # nil.to_s is the empty string, but SQL clients typically display NULL
+      end
+
+      column_widths = Array.new(result_strings.first.length) { 0 } # Assume at least one row exists (column headings)
+      result_strings.each do |row|
+        row.each_with_index { |str, i| column_widths[i] = [column_widths[i], str.length].max }
+      end
+
+      result_strings.insert(1, column_widths.map { '-' * _1 }) # Separate the headings
+
+      result_strings.each do |row|
+        puts row.each_with_index.map { |str, i| str.ljust(column_widths[i]) }.join(" | ")
+      end
     rescue SQLite3::Exception => e 
       puts e.message
     end

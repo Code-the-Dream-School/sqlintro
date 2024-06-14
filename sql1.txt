@@ -42,6 +42,6 @@ SELECT c.customerName, o.orderID FROM customers AS c LEFT OUTER JOIN orders AS o
 7. Retrieve the OrderID and ProductName of every order for a product with Tofu in the name.
 Paste your SQL statement below.  You will have to join Orders, OrderDetails, and Products.
 
-
+SELECT o.orderID, p.productName FROM orders AS o LEFT OUTER JOIN orderDetails AS od LEFT OUTER JOIN products AS p ON o.orderID=od.orderID AND od.productID=p.productID WHERE p.productName LIKE "%tofu%";
 
 

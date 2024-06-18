@@ -2,17 +2,25 @@
 to join the OrderDetails table with the product table.  For TotalCount, you will Use
 SUM(Quantity) AS TotalCount .  Order by product name.
 You will need to group by product ID.  Paste your SQL statement below.
-    SELECT SUM(od.quantity) AS SumGoodsInOrders FROM orders AS o LEFT OUTER JOIN orderDetails AS od LEFT OUTER JOIN products AS p 
-ON o.orderId = od.orderId AND od.productId = p.productId WHERE p.productName IS NOT NULL ORDER BY p.productName;
+    SELECT Products.productName, SUM(OrderDetails.quantity) AS SumGoodsInOrders
+    FROM OrderDetails
+    JOIN Products 
+    ON OrderDetails.productId = Products.productId 
+    GROUP BY Products.productId 
+    ORDER BY Products.productName;
 
 
 2. Retrieve the customer name and OrderDetailsID for all the OrderDetails for each customer,
 ordered by customer name. Paste your SQL statement below. You will have to join the Customers
 table with the Orders table, and the Orders table with the OrderDetails table, 
 because the Orders table is the one that ties the Customer table to the OrderDetails table.
-    SELECT c.customerName, od.orderDetailID FROM customers AS c LEFT OUTER JOIN orders AS o LEFT OUTER JOIN orderDetails AS od
-    ON c.customerId = o.customerId AND o.orderId = od.orderId 
-    WHERE od.productId IS NOT NULL;
+    SELECT Customers.customerName, OrderDetails.orderDetailID 
+    FROM Customers 
+    JOIN Orders 
+    ON Customers.customerId = Orders.customerId 
+    JOIN OrderDetails
+    ON Orders.orderId = OrderDetails.orderId 
+    WHERE OrderDetails.productId IS NOT NULL;
 
 3. Extend the previous query to join the Products table.  You are now joining the Customers, Orders,
 OrderDetails, and Products tables.  The result of your query should include the
@@ -20,19 +28,36 @@ customer name, the product name, and the total quantity of that product ordered.
 may have ordered the same product in several different orders.  So the total quantity is
 SUM(Quantity) AS TotalQuantity and you must GROUP BY CustomerID, ProductID.  Paste your
 SQL statement below.
-    SELECT c.customerName, p.productName, SUM(od.quantity) AS TotalQuantity FROM customers AS c LEFT OUTER JOIN orders AS o LEFT OUTER JOIN orderDetails AS od LEFT OUTER JOIN products AS p
-    ON c.customerId = o.customerId AND o.orderId = od.orderId AND od.productId = p.productId  
-    WHERE p.productName IS NOT NULL
-    GROUP BY c.customerId, p.productId;
+    SELECT Customers.customerName, Products.productName, SUM(OrderDetails.quantity) 
+    AS TotalQuantity 
+        FROM Customers 
+        JOIN Orders 
+        ON Customers.customerId = Orders.customerId 
+        JOIN OrderDetails
+        ON Orders.orderId = OrderDetails.orderId 
+        JOIN Products
+        ON OrderDetails.productId = Products.productId  
+        WHERE Products.productName IS NOT NULL
+        GROUP BY Customers.customerId, Products.productId;
 
 
 4. Extend the previous query to give the total price as well as the customer name, product name, 
 and total quantity.  Here you will have
 (SUM(Quantity) * Price) AS TotalPrice.  Paste your SQL statement below.
-    SELECT c.customerName, p.productName, SUM(od.quantity) AS TotalQuantity, (SUM(od.quantity) * p.price) AS TotalPrice FROM customers AS c LEFT OUTER JOIN orders AS o LEFT OUTER JOIN orderDetails AS od LEFT OUTER JOIN products AS p
-    ON c.customerId = o.customerId AND o.orderId = od.orderId AND od.productId = p.productId  
-    WHERE p.productName IS NOT NULL
-    GROUP BY c.customerId, p.productId;
+    SELECT 
+        Customers.customerName, 
+        Products.productName, 
+        SUM(OrderDetails.quantity) AS TotalQuantity, 
+        (SUM(OrderDetails.quantity) * Products.price) AS TotalPrice 
+    FROM Customers
+    JOIN Orders
+    ON Customers.customerId = Orders.customerId
+    JOIN OrderDetails
+    ON Orders.orderId = OrderDetails.orderId 
+    JOIN Products
+    ON OrderDetails.productId = Products.productId  
+    WHERE PRoducts.productName IS NOT NULL
+    GROUP BY Customers.customerId, Products.productId;
 
 
 5. Add a new Order to the Orders table.  You will have to specify the ID of an existing customer

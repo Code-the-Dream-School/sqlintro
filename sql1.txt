@@ -50,8 +50,7 @@ ORDER BY c.CustomerName
 6. Retrieve the list of customer names for customers that have no orders.  There are two ways to do this
 One is to use a subquery, as follows:
 
-SELECT * F
-ROM Customers 
+SELECT * FROM Customers 
 WHERE NOT EXISTS (
 	SELECT 1 
 	FROM Orders 
@@ -69,7 +68,7 @@ Or
 
 SELECT c.CustomerName, o.OrderID 
 FROM Customers c 
-FULL JOIN Orders o ON o.CustomerID = c.CustomerID 
+LEFT JOIN Orders o ON o.CustomerID = c.CustomerID 
 WHERE o.OrderID IS NULL;
 
 7. Retrieve the OrderID and ProductName of every order for a product with Tofu in the name.

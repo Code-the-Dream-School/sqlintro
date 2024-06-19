@@ -1,11 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    mini_portile2 (2.8.7)
     pastel (0.8.0)
       tty-color (~> 0.5)
-    sqlite3 (1.6.8)
-      mini_portile2 (~> 2.8.0)
+    sqlite3 (1.6.8-x86_64-linux)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
     tty-prompt (0.23.1)
@@ -19,7 +17,6 @@ GEM
     wisper (2.0.1)
 
 PLATFORMS
-  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES

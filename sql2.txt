@@ -37,7 +37,7 @@ you will have to specify the ID of an existing product.  Paste your SQL statemen
 
 
 
-8. Update the Price Table, so that every product with a price less than $20 has the price increased by
+8. Update the Products table, so that every product with a price less than $20 has the price increased by
 0.50.  Paste your SQL statement below.
 
 

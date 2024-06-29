@@ -6,7 +6,9 @@ SELECT * FROM Products LIMIT 5;
 1. Use an SQL SELECT statement to retrieve the first 10 rows of the Customer table, ordered by CustomerName.
 Paste your SQL statement below:
 
-SELECT CustomerID, CustomerName FROM Customers LIMIT 10;
+SELECT CustomerID, CustomerName FROM Customers
+ORDER BY CustomerName ASC
+LIMIT 10;
 
 2. Use an SQL Select statement to retrieve the names and prices for all products that cost less than $20.
 Paste your SQL statement below:
@@ -34,7 +36,8 @@ in the results of the query.  Paste your SQL statement below.
 
 SELECT CustomerName, OrderID FROM Customers
 LEFT JOIN Orders
-ON Customers.CustomerID = Orders.CustomerID;
+ON Customers.CustomerID = Orders.CustomerID
+ORDER BY CustomerName ASC;
 
 6. Retrieve the list of customer names for customers that have no orders.  There are two ways to do this
 One is to use a subquery, as follows:
@@ -56,6 +59,6 @@ Paste your SQL statement below.  You will have to join Orders, OrderDetails, and
 SELECT o.OrderID, ProductName FROM Orders o
 JOIN OrderDetails od ON o.OrderID = od.OrderID 
 JOIN Products p ON od.ProductID = p.ProductID
-WHERE ProductName LIKE "Tofu%";
+WHERE ProductName LIKE "%Tofu%";
 
 

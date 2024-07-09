@@ -54,6 +54,6 @@ There may be many orders for a given product, and there may be many products for
 For each Order, there are a records in the OrderDetails table that say which product was ordered, and how many of that product was ordered.  You'll have a few different products in the order, so you need a few different records in the OrderDetails table.  But the OrderDetails table does not have the information describing the product, such as the product name.  Information about the product is in the Products table.  You could put all of the product information into the OrderDetails table -- but then you would have to repeat it for each other order that includes that product.  That would be inefficient.  So, to get the product name and other information into a full description of the order, you have to join the Orders table with both the OrderDetails table and the Product table.
 
 In this case, the OrderDetails table is the join table.  We can then see, for example, the products and quantity for each order:
-```
+```sql
 SELECT o.OrderID, ProductName, Quantity FROM Orders o JOIN OrderDetails od ON o.OrderID = od.OrderID JOIN Products p ON od.ProductID = p.ProductID ORDER BY o.OrderID;
 ```

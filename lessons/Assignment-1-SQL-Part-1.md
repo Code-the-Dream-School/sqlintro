@@ -43,7 +43,7 @@ working, paste them in as answers into sql1.txt.
 ## Submitting Your Work
 
 To submit your work, do the following:
-```
+```bash
 git add -A
 git commit -m "lesson 1 commit"
 git push origin lesson1
